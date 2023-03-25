@@ -17,9 +17,9 @@ def sort_by_date(data):
     """
     executed_list = []
     for operation in data:
-        if len(operation) != 0 and operation["state"] == "EXECUTED":
-            executed_list.append(operation)
+        if "state" in operation.keys():
+            if len(operation) != 0 and operation["state"] == "EXECUTED":
+                executed_list.append(operation)
 
     executed_list.sort(key=lambda x: x.get('date'), reverse=True)
     return executed_list
-
