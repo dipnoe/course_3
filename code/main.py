@@ -1,8 +1,8 @@
-from utils import sort_by_date, json_reader, output_data
+import utils
 
 if __name__ == '__main__':
 
     for operation in range(5):
 
-        data = sort_by_date(json_reader('../operations.json'))
-        print(output_data(data[operation]))
+        data = utils.sort_by_date(utils.json_reader('../operations.json'))
+        print(utils.output_data(data[operation]))
