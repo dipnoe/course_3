@@ -46,7 +46,7 @@ def masking_card(card_info: str):
     card_name = ' '.join(card_info.split()[:-1])
 
     if len(card_number) == 16 and card_number.isdigit():
-        card_number = card_number[4:6] + '** **** ' + card_number[-4:]
+        card_number = card_number[:4] + ' ' + card_number[4:6] + '** **** ' + card_number[-4:]
 
     elif len(card_number) == 20 and card_number.isdigit():
         card_number = '**' + card_number[-4:]

@@ -1,4 +1,4 @@
-from code.utils import sort_by_date
+from code.utils import sort_by_date, change_date_format
 import pytest
 
 
@@ -32,3 +32,12 @@ def test_sort_by_data(collection):
         {"state": "EXECUTED",
          "date": "2018"}
     ]
+
+
+def test_change_date_format():
+    assert change_date_format("2018-09-12T21:27:25.241689") == "12.09.2018"
+    assert change_date_format("2018-09-12") == "12.09.2018"
+    assert change_date_format("") == ""
+    assert change_date_format("12.09.2018") == "12.09.2018"
+
+
