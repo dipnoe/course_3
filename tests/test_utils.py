@@ -1,4 +1,4 @@
-from code.utils import sort_by_date, change_date_format
+from code.utils import sort_by_date, change_date_format, masking_card, output_money
 import pytest
 
 
@@ -40,4 +40,10 @@ def test_change_date_format():
     assert change_date_format("") == ""
     assert change_date_format("12.09.2018") == "12.09.2018"
 
+
+def test_masking_card():
+    assert masking_card("Visa Platinum 1246377376343588") == "Visa Platinum 1246 37** **** 3588"
+    assert masking_card("Счет 14211924144426031657") == "Счет **1657"
+    assert masking_card('') == ''
+    assert masking_card('1 2 3') == 'Uncorrected card_info'
 
