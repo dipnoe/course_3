@@ -42,16 +42,22 @@ def masking_card(card_info: str):
     :param card_info: строка с именем и номером карты/счета
     :return: имя карты/счета и ее замаскированный номер
     """
-    card_number = card_info.split()[-1]
-    card_name = ' '.join(card_info.split()[:-1])
+    if len(card_info) != 0:
+        card_number = card_info.split()[-1]
+        card_name = ' '.join(card_info.split()[:-1])
 
-    if len(card_number) == 16 and card_number.isdigit():
-        card_number = card_number[:4] + ' ' + card_number[4:6] + '** **** ' + card_number[-4:]
+        if len(card_number) == 16 and card_number.isdigit():
+            card_number = card_number[:4] + ' ' + card_number[4:6] + '** **** ' + card_number[-4:]
 
-    elif len(card_number) == 20 and card_number.isdigit():
-        card_number = '**' + card_number[-4:]
+        elif len(card_number) == 20 and card_number.isdigit():
+            card_number = '**' + card_number[-4:]
 
-    return f'{card_name} {card_number}'
+        else:
+            return 'Uncorrected card_info'
+
+        return f'{card_name} {card_number}'
+
+    return ''
 
 
 def output_money(operation_amount: dict):
