@@ -21,7 +21,7 @@ def sort_by_date(data):
 
         if "state" in operation.keys():
 
-            if len(operation) != 0 and operation["state"] == "EXECUTED":
+            if len(operation) != 0 and operation.get("state") == "EXECUTED":
                 sorted_list.append(operation)
 
     sorted_list.sort(key=lambda x: x.get('date'), reverse=True)
@@ -52,3 +52,34 @@ def masking_card(card_info: str):
         card_number = '**' + card_number[-4:]
 
     return f'{card_name} {card_number}'
+
+
+def output_money(operation_amount: dict):
+    """
+    :param operation_amount: словарь с данными
+    :return: количество денег и валюту в нужном формате
+    """
+    if "amount" in operation_amount.keys() and "currency" in operation_amount.keys():
+        amount = operation_amount.get("amount")
+        currency = operation_amount.get("currency").get("name")
+        return f'{amount} {currency}'
+
+
+def output_data(operation: dict):
+    """
+    :param operation: словарь с исходными данными об операциях
+    :return: операции в виде
+    <дата перевода> <описание перевода>
+    <откуда> -> <куда>
+    <сумма перевода> <валюта>
+    """
+
+    date = change_date_format(operation.get("date"))
+    from_ = ''
+    to_ = masking_card(operation.get("to"))
+    money_info = output_money(operation.get("operationAmount"))
+
+    if "from" in operation.keys():
+        from_ = masking_card(operation.get("from")) + ' -> '
+
+    return f'{date} {operation.get("description")}\n{from_}{to_}\n{money_info}\n'
