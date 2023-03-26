@@ -34,18 +34,20 @@ def test_sort_by_data(collection):
     ]
 
 
-def test_change_date_format():
-    assert change_date_format("2018-09-12T21:27:25.241689") == "12.09.2018"
-    assert change_date_format("2018-09-12") == "12.09.2018"
-    assert change_date_format("") == ""
-    assert change_date_format("12.09.2018") == "12.09.2018"
+@pytest.mark.parametrize('str_date, expected_date', [("2018-09-12T21:27:25.241689", "12.09.2018"),
+                                                     ("2018-09-12", "12.09.2018"),
+                                                     ("", ""),
+                                                     ("12.09.2018", "12.09.2018")])
+def test_change_date_format(str_date, expected_date):
+    assert change_date_format(str_date) == expected_date
 
 
-def test_masking_card():
-    assert masking_card("Visa Platinum 1246377376343588") == "Visa Platinum 1246 37** **** 3588"
-    assert masking_card("Счет 14211924144426031657") == "Счет **1657"
-    assert masking_card('') == ''
-    assert masking_card('1 2 3') == 'Uncorrected card_info'
+@pytest.mark.parametrize('card, mask_card', [("Visa Platinum 1246377376343588", "Visa Platinum 1246 37** **** 3588"),
+                                             ("Счет 14211924144426031657", "Счет **1657"),
+                                             ("", ""),
+                                             ('1 2 3', 'Uncorrected card_info')])
+def test_masking_card(card, mask_card):
+    assert masking_card(card) == mask_card
 
 
 def test_output_money():
