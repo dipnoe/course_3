@@ -2,7 +2,7 @@ from code.utils import sort_by_date, change_date_format, masking_card, output_mo
 import pytest
 
 
-@pytest.fixture
+@pytest.fixture()
 def collection():
     return [
         {},
@@ -47,3 +47,8 @@ def test_masking_card():
     assert masking_card('') == ''
     assert masking_card('1 2 3') == 'Uncorrected card_info'
 
+
+def test_output_money():
+    assert output_money({"amount": "67314.70", "currency": {"name": "руб."}}) == "67314.70 руб."
+    assert output_money({"amount": "67314.70", "currency": {"name": "USD"}}) == "67314.70 USD"
+    assert output_money({"amount": "", "currency": {"name": ""}}) == " "
