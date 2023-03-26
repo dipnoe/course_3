@@ -19,9 +19,9 @@ def sort_by_date(data):
 
     for operation in data:
 
-        if "state" in operation.keys():
+        if "state" in operation.keys() and "date" in operation.keys():
 
-            if len(operation) != 0 and operation.get("state") == "EXECUTED":
+            if operation.get("state") == "EXECUTED":
                 sorted_list.append(operation)
 
     sorted_list.sort(key=lambda x: x.get('date'), reverse=True)
