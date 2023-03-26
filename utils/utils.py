@@ -35,3 +35,20 @@ def change_date_format(date: str):
     """
     date = date.split('T')[0].split('-')
     return '.'.join(date[::-1])
+
+
+def masking_card(card_info: str):
+    """
+    :param card_info: строка с именем и номером карты/счета
+    :return: имя карты/счета и ее замаскированный номер
+    """
+    card_number = card_info.split()[-1]
+    card_name = ' '.join(card_info.split()[:-1])
+
+    if len(card_number) == 16 and card_number.isdigit():
+        card_number = card_number[4:6] + '** **** ' + card_number[-4:]
+
+    elif len(card_number) == 20 and card_number.isdigit():
+        card_number = '**' + card_number[-4:]
+
+    return f'{card_name} {card_number}'
